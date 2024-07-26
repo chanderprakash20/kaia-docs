@@ -8,6 +8,8 @@ import {
   Box,
 } from '@chakra-ui/react'
 
+
+
 const ArchiveRelease = (props) => {
   const releaseData = props.releaseData
 
@@ -21,20 +23,36 @@ const ArchiveRelease = (props) => {
                 <div class="stable-release-arrow-down"></div>
             </div>
           )}
-          <div className="stable-release-table-header">
-            <div className="stable-release-table-header-item-release">
-              Release
-            </div>
-            <div className="stable-release-table-header-item-release_note">
-              Release note
-            </div>
-            <dev className="stable-release-table-header-item-hardfork">
-              Hardfork
-            </dev>
-            <div className="stable-release-table-header-item-published">
-              Published
-            </div>
-          </div>
+         <div className="stable-release-table-header">
+    <div className="stable-release-table-header-item-release">
+      Release
+      <span className="tooltip">
+        ?
+        <span className="tooltiptext">This column shows the release versions</span>
+      </span>
+    </div>
+    <div className="stable-release-table-header-item-release_note">
+      Release note
+      <span className="tooltip">
+        ?
+        <span className="tooltiptext">This column provides links to the release notes</span>
+      </span>
+    </div>
+    <div className="stable-release-table-header-item-hardfork">
+      Hardfork
+      <span className="tooltip">
+        ?
+        <span className="tooltiptext">This column indicates the hardfork version</span>
+      </span>
+    </div>
+    <div className="stable-release-table-header-item-published">
+      Published
+      <span className="tooltip">
+        ?
+        <span className="tooltiptext">This column shows the published date</span>
+      </span>
+    </div>
+  </div>
           {tabConfig.machineType == 'windows'
             ? (() => {
                 let binaryTitle = tabConfig.config[0].binaryTitle
@@ -100,7 +118,14 @@ const ArchiveRelease = (props) => {
                                     let binaryPrefixValue = _config.binaryPrefixes
                                       ? _config.binaryPrefixes[binaryPrefix]
                                       : ''
+                                    let binaryVersionValue = _config.binaryVersion
+                                      ? _config.binaryVersion[binaryPrefix]
+                                      : ''
                                     let binaryFileformat = _config.binaryFileFormat
+                                    binaryFileformat = binaryFileformat.replace(
+                                      '{BINARY_VERSION}',
+                                      binaryVersionValue
+                                    )
                                     binaryFileformat = binaryFileformat.replace(
                                       '{BINARY_NAME}',
                                       _binaryName
